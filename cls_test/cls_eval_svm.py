@@ -1,13 +1,12 @@
 import os
 import torch
-from network.basic_encoders import PointNet_CLS_Encoder, DGCNN_CLS_Encoder
+from encoders import PointNet_CLS_Encoder, DGCNN_CLS_Encoder
 from cls_model_4_compare import get_encoder
 import argparse
 import numpy as np
 from sklearn.svm import SVC
 from torch.utils.data import DataLoader
 from cls_eval_data import ModelNet40SVM, ScanObjectNNSVM, ModelNet10SVM
-from network.encoder import PCT_Encoder
 from psg_model_3 import Encoder_Head
 
 
