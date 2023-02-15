@@ -1,6 +1,6 @@
 import os
 import torch
-from network.basic_encoders import PointNet_CLS_Encoder, DGCNN_CLS_Encoder
+from encoders import PointNet_CLS_Encoder, DGCNN_CLS_Encoder
 from cls_eval_data import load_modelnet_data, load_ScanObjectNN
 import argparse
 from tqdm import tqdm
