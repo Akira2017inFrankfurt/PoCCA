@@ -5,7 +5,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-
+# add more comments to important statements
 # loss fn from BYOL
 def loss_fn(x, y):
     x = F.normalize(x, dim=-1, p=2)
