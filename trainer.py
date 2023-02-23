@@ -14,9 +14,11 @@ from distributed_utils import init_distributed_mode, dist, cleanup
 from shapenet_loader import ShapeNetCLS
 from model import SimAttention_Multi_X_Attn
 
+# change SimAttention_Multi_X_Attn settings in row 73
+# modify optmizer, batch size, lr, weights_save path, model_choice, patch_num_list
 
 def init_process(rank, world_size, args):
-    # 初始化各进程环境 start
+    # 初始化各进程环境 start 
     os.environ["MASTER_ADDR"] = "localhost"
     os.environ["MASTER_PORT"] = "12355"
 
@@ -147,17 +149,17 @@ def run(ws, terminal_parameters):
 if __name__ == '__main__':
     mp.set_start_method('spawn', force=True)
     parser = argparse.ArgumentParser()
-    parser.add_argument('--weights', type=str, default='./weights_1017')
+    parser.add_argument('--weights', type=str, default='./weights_1017') # weights save path
     parser.add_argument('--epochs', type=int, default=100)
     parser.add_argument('--batch_size', type=int, default=32)
     parser.add_argument('--opt', type=str, default='adam')  # or 'sgd' 'adamw'
     parser.add_argument('--lr', type=float, default=1e-2)
-    parser.add_argument('--patch_num_list', type=list, default=[0, 1, 2])
+    parser.add_argument('--patch_num_list', type=list, default=[0, 1, 2]) # scale 0, 1, 2
     parser.add_argument('--attn_type', type=str, default='cross')  # or 'assgin'
 
     # 是否启用SyncBatchNorm
     parser.add_argument('--syncBN', type=bool, default=True)
-    parser.add_argument('--model_choice', type=int, default=1)
+    parser.add_argument('--model_choice', type=int, default=1) # 1 for DGCNN, 0 for PointNet
     # 数据集所在根目录
     parser.add_argument('--root', type=str,
                         default='/mnt/longvideo/jinkun/4_liang/modelnet40_normal_resampled')
@@ -165,8 +167,7 @@ if __name__ == '__main__':
     # 不要改该参数，系统会自动分配
     parser.add_argument('--device', default='cuda', help='device id (i.e. 0 or 0,1 or cpu)')
     # 开启的进程数(注意不是线程),不用设置该参数，会根据nproc_per_node自动设置
-    parser.add_argument('--world_size', default=8, type=int,
-                        help='number of distributed processes')
+    parser.add_argument('--world_size', default=8, type=int, help='number of distributed processes')
     parser.add_argument('--dist_url', default='env://', help='url used to set up distributed training')
     opt = parser.parse_args()
 
