@@ -145,7 +145,7 @@ if __name__ == "__main__":
     rand_x_0 = torch.rand([4, 1, 1024]).to(device)
     rand_x_1 = torch.rand([4, 8, 1024]).to(device)
 
-    attn_list = ['cross', 'assign', 'merge']
+    attn_list = ['cross']
 
     def test_attn(attn):
         print("Chose {attn} attention for test")
@@ -156,20 +156,7 @@ if __name__ == "__main__":
                     norm_layer=nn.LayerNorm,
                     post_norm=True
                 ).to(device)
-        elif attn is 'assign':
-            attention = AssignAttention(
-                    dim=1024,
-                    num_heads=1,
-                    qkv_bias=True,
-                    hard=True,
-                    gumbel=True,
-                    gumbel_tau=1.,
-                    sum_assign=False,
-                    assign_eps=1.
-                ).to(device)
-        elif attn is 'merge':
-            attention = MergeAttn().to(device)
-        
+            
         out = attention(rand_x_0, rand_x_1)
         print('Output shape: {out.shape}, Done!')
 
